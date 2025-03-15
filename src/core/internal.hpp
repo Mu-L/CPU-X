@@ -27,7 +27,6 @@
 #include "data.hpp"
 
 using GpuDrv = Data::Graphics::Card::GpuDrv;
-extern bool __sigabrt_received;
 
 
 /***************************** Bandwidth *****************************/
@@ -71,14 +70,14 @@ int cputab_package_fallback(Data &data);
 
 /***************************** Libopencl *****************************/
 
-/* Set number of Compute Unit (CU) / Workgroup Processor (WGP) / Execution Unit (EU) / Streaming Multiprocessor (SM) for a GPU */
-int set_gpu_compute_unit(Data::Graphics::Card &card, struct pci_dev *dev);
+/* Set the OpenCL version and Compute Unit (CU) / Workgroup Processor (WGP) / Execution Unit (EU) / Streaming Multiprocessor (SM) for a GPU */
+int set_gpu_opencl_version(std::string card_vendor, struct pci_dev *pci_dev, int pfd_out);
 
 
 /***************************** Libopengl *****************************/
 
 /* Set the OpenGL version for GPU */
-int set_gpu_opengl_version(Data::Graphics::Card &card);
+int set_gpu_opengl_version(std::string card_vendor, int pfd_out);
 
 
 /***************************** Libpci *****************************/
@@ -99,7 +98,7 @@ int system_dynamic(Data &data);
 /***************************** Libvulkan *****************************/
 
 /* Set the Vulkan version for GPU */
-int set_gpu_vulkan_version(Data::Graphics::Card &card, struct pci_dev *dev);
+int set_gpu_vulkan_version(std::string card_vendor, struct pci_dev *dev, int pfd_out);
 
 
 #endif /* _CORE_INTERNAL_HPP_ */
